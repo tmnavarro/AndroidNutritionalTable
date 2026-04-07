@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Nutritional Table</string>
+    <string name="app_name">TabelaNutricional</string>
+    <string name="titulo_boas_vindas">Olá %1$s!</string>
+    <string name="subtitulo_boas_vindas">Seja bem vindo(a) de volta!</string>
+    <string name="imagem_perfil_usuario">Imagem de perfil de usuário</string>
+    <string name="botao_notificacoes">Botão de notificações</string>
+    <string name="titulo_saude_em_foco">Saúde em foco</string>
+    <string name="imagem_noticia_saude_em_foco">Imagem de notícia da sessão saúde em foco</string>
+    <string name="titulo_tabela_nutricional">Tabela nutricional</string>
+    <string name="imagem_item_tabela_nutricional">Imagem de item da sessão tabela nutricional</string>
+    <string name="botao_coracao">Botão coração</string>
+    <string name="botao_voltar">Botão voltar</string>
+    <string name="mais_detalhes">Mais detalhes</string>
+    <string name="valor_kcal">%1$s kcal</string>
+    <string name="valor_g">%1$s g</string>
+    <string name="valor_mg">%1$s mg</string>
 </resources>
