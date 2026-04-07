@@ -76,7 +76,7 @@ fun HealthyRecipeCard(
                     style = Typography.headlineMedium
                 )
                 Text(
-                    text = stringResource(R.string.calorias_da_receita, healthyRecipe.calories),
+                    text = stringResource(R.string.valor_kcal, healthyRecipe.calories),
                     style = Typography.bodyLarge
                 )
             }

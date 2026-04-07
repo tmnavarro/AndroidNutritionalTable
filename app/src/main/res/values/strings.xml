@@ -16,6 +16,5 @@
     <string name="valor_mg">%1$s mg</string>
     <string name="tempo_de_leitura_da_noticia">%1$d MIN</string>
     <string name="ola_usuario">Olá %1$s!</string>
-    <string name="calorias_da_receita">%1$s kcal</string>
     <string name="proteinas_e_caiboidratos">%1$s proteínas, %2$s carboidratos</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.compose.ui.unit.dp
 val LocalSizing = staticCompositionLocalOf { Sizing() }
 
 data class Sizing(
+    val x0: Dp = 0.dp,
     val x1: Dp = 1.dp,
     val x2: Dp = 2.dp,
     val xs: Dp = 4.dp,
