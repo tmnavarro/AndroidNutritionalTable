@@ -7,10 +7,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
-import androidx.compose.ui.unit.dp
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme
+import com.example.nutritionaltable.ui.theme.NutritionalTableTheme.sizing
 import com.example.nutritionaltable.ui.theme.Primary
 import com.example.nutritionaltable.ui.theme.Typography
 
@@ -23,10 +22,10 @@ fun PrimaryButton(modifier: Modifier = Modifier, text: String, onClick: () -> Un
             containerColor = Primary
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(
-            defaultElevation = 4.dp
+            defaultElevation = sizing.xs
         ),
         onClick = onClick,
-        shape = RoundedCornerShape(size = 16.dp)
+        shape = RoundedCornerShape(size = sizing.md)
     ) {
         Text(
             text = text,
