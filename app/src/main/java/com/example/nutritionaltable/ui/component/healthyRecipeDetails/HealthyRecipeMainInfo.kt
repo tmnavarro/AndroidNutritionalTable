@@ -28,7 +28,7 @@ fun HealthyRecipeMainInfo(
     totalPortionInGrams: Int
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().padding(sizing.md),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -83,7 +83,6 @@ fun HealthyRecipeMainInfo(
 private fun HealthyRecipeMainInfoPreview() {
     NutritionalTableTheme {
         HealthyRecipeMainInfo(
-            modifier = Modifier.padding(vertical = sizing.md),
             recipeName = "Nome da receita",
             calories = 120.40f,
             totalPortionInGrams = 200
