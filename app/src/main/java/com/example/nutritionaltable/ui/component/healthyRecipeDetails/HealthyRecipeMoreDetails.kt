@@ -9,17 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.nutritionaltable.data.model.NutrientUnit
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme.sizing
 import com.example.nutritionaltable.ui.theme.Typography
-
-enum class NutrientUnit(
-    val symbol: String
-) {
-    GRAM(symbol = "g"),
-    MILLIGRAM(symbol = "mg"),
-    KCAL(symbol = "kcal"),
-}
 
 @Composable
 fun HealthyRecipeMoreDetails(

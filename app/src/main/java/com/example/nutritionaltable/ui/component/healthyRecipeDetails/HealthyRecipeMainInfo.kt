@@ -1,4 +1,4 @@
-package com.example.nutritionaltable.ui.component.healthyRecipeDetails
+package com.example.nutritionaltable.healthyRecipeDetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

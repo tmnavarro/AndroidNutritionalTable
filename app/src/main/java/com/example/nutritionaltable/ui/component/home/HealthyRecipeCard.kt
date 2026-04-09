@@ -1,18 +1,15 @@
 package com.example.nutritionaltable.ui.component.home
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,18 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.nutritionaltable.R
+import com.example.nutritionaltable.data.model.HealthyRecipe
+import com.example.nutritionaltable.mockHealthyRecipes
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme.sizing
 import com.example.nutritionaltable.ui.theme.Typography
 
-data class HealthyRecipe(
-    val title: String,
-    @DrawableRes
-    val imageRes: Int,
-    val calories: Float,
-    val proteins: Float,
-    val carbohydrates: Float
-)
 
 @Composable
 fun HealthyRecipeCard(
@@ -48,7 +39,7 @@ fun HealthyRecipeCard(
     ) {
         Image(
             modifier = Modifier
-                .size(sizing.x2l)
+                .size(sizing.x3l)
                 .clip(
                     shape = RoundedCornerShape(
                         size = sizing.md
@@ -70,22 +61,22 @@ fun HealthyRecipeCard(
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = healthyRecipe.title,
+                    text = healthyRecipe.name,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
                     style = Typography.headlineMedium
                 )
                 Text(
-                    text = stringResource(R.string.valor_kcal, healthyRecipe.calories),
+                    text = stringResource(R.string.valor_kcal, healthyRecipe.calories.value),
                     style = Typography.bodyLarge
                 )
             }
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(
-                    R.string.proteinas_e_caiboidratos,
-                    healthyRecipe.proteins,
-                    healthyRecipe.carbohydrates,
+                    R.string.g_proteinas_g_carboidratos_da_receita,
+                    healthyRecipe.proteins.value,
+                    healthyRecipe.carbohydrates.value,
                     ),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
@@ -98,18 +89,9 @@ fun HealthyRecipeCard(
 @Preview(showBackground = true, backgroundColor = 0xFFf2f2f2)
 @Composable
 private fun HealthyRecipeCardPreview() {
-
-    val healthyRecipe = HealthyRecipe(
-        title = "Titulo da receita",
-        imageRes = R.drawable.img_assorted_salad,
-        calories = 1200f,
-        proteins = 50f,
-        carbohydrates = 250.5f,
-    )
-
     NutritionalTableTheme {
         HealthyRecipeCard(
-            healthyRecipe = healthyRecipe
+            healthyRecipe = mockHealthyRecipes[0]
         )
     }
 }
@@ -117,15 +99,6 @@ private fun HealthyRecipeCardPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFf2f2f2)
 @Composable
 private fun HealthyRecipeCardListPreview() {
-
-    val healthyRecipe = HealthyRecipe(
-        title = "Titulo da receita",
-        imageRes = R.drawable.img_assorted_salad,
-        calories = 1200f,
-        proteins = 50f,
-        carbohydrates = 250.5f,
-    )
-
     NutritionalTableTheme {
         LazyColumn (
             verticalArrangement = Arrangement.SpaceBetween
@@ -133,7 +106,7 @@ private fun HealthyRecipeCardListPreview() {
             items(count = 4) {
                 HealthyRecipeCard(
                     modifier = Modifier.padding(sizing.md),
-                    healthyRecipe = healthyRecipe
+                    healthyRecipe = mockHealthyRecipes[0]
                 )
             }
 

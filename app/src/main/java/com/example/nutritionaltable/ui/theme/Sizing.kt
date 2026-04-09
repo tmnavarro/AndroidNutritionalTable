@@ -18,5 +18,5 @@ data class Sizing(
     val x2l: Dp = 48.dp,
     val x3l: Dp = 64.dp,
     val x4l: Dp = 128.dp,
-    val x5l: Dp = 256.dp,
+    val x5l: Dp = 160.dp,
 )
