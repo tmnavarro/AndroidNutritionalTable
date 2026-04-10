@@ -66,7 +66,9 @@ private const val HEALTHY_RECIPE_IMAGE_ROTATE = 360f
 @Composable
 fun HealthyRecipeDetails(
     modifier: Modifier = Modifier,
-    healthyRecipe: HealthyRecipe
+    healthyRecipe: HealthyRecipe,
+    onNavigateBack: () -> Unit,
+    onClickFavorite: (isSelected: Boolean) -> Unit
 ) {
     var isImageVisible by remember { mutableStateOf(false) }
     val scale = remember { Animatable(initialValue = 0f) }
@@ -120,14 +122,16 @@ fun HealthyRecipeDetails(
                         elevation = sizing.lg,
                         shape = CircleShape,
                         spotColor = Primary
-                    ), onClick = {}
+                    ), onClick = onNavigateBack
                 )
                 LoveButton(
                     modifier = Modifier.shadow(
                         elevation = sizing.lg,
                         shape = CircleShape,
                         spotColor = Primary
-                    ), onClick = {}
+                    ), onClick = { isSelected ->
+                        onClickFavorite(isSelected)
+                    }
                 )
             }
 
@@ -245,7 +249,9 @@ fun HealthyRecipeNutrientBarList(
 private fun HealthyRecipeDetailsPreview() {
     NutritionalTableTheme {
         HealthyRecipeDetails(
-            healthyRecipe = mockHealthyRecipes[0]
+            healthyRecipe = mockHealthyRecipes[0],
+            onNavigateBack = {},
+            onClickFavorite = {}
         )
     }
 }

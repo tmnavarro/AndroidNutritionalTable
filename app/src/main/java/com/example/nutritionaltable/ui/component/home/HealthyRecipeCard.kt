@@ -1,6 +1,7 @@
 package com.example.nutritionaltable.ui.component.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,10 +33,13 @@ import com.example.nutritionaltable.ui.theme.Typography
 @Composable
 fun HealthyRecipeCard(
     modifier: Modifier = Modifier,
-    healthyRecipe: HealthyRecipe
+    healthyRecipe: HealthyRecipe,
+    onClick: (selectedHealthyRecipeId: String) -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth().clickable {
+            onClick(healthyRecipe.id.toString())
+        }
     ) {
         Image(
             modifier = Modifier
@@ -91,7 +95,8 @@ fun HealthyRecipeCard(
 private fun HealthyRecipeCardPreview() {
     NutritionalTableTheme {
         HealthyRecipeCard(
-            healthyRecipe = mockHealthyRecipes[0]
+            healthyRecipe = mockHealthyRecipes[0],
+            onClick = {}
         )
     }
 }
@@ -106,7 +111,8 @@ private fun HealthyRecipeCardListPreview() {
             items(count = 4) {
                 HealthyRecipeCard(
                     modifier = Modifier.padding(sizing.md),
-                    healthyRecipe = mockHealthyRecipes[0]
+                    healthyRecipe = mockHealthyRecipes[0],
+                    onClick = {}
                 )
             }
 

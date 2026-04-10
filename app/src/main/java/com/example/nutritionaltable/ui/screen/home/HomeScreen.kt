@@ -32,7 +32,10 @@ import com.example.nutritionaltable.ui.theme.NutritionalTableTheme.sizing
 import com.example.nutritionaltable.ui.theme.Typography
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    onNavigationToDetails: (healthyRecipeId: String) -> Unit
+) {
     Column(
         modifier = modifier.fillMaxWidth()
     ) {
@@ -67,7 +70,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             Spacer(
                 modifier = Modifier.height(sizing.lg)
             )
-            HealthyRecipeList(healthyRecipes = mockHealthyRecipes)
+            HealthyRecipeList(healthyRecipes = mockHealthyRecipes, onNavigationToDetails = onNavigationToDetails)
         }
 
     }
@@ -95,7 +98,8 @@ fun WellnessNewsList(
 @Composable
 fun HealthyRecipeList(
     modifier: Modifier = Modifier,
-    healthyRecipes: List<HealthyRecipe>
+    healthyRecipes: List<HealthyRecipe>,
+    onNavigationToDetails: (healthyRecipeId: String) -> Unit
 ) {
     LazyColumn (
         modifier = modifier,
@@ -103,7 +107,10 @@ fun HealthyRecipeList(
     ) {
         items(items = healthyRecipes, key = { healthyRecipe -> healthyRecipe.id }) { healthyRecipe ->
             HealthyRecipeCard(
-                healthyRecipe = healthyRecipe
+                healthyRecipe = healthyRecipe,
+                onClick = { selectedHealthyRecipeId ->
+                    onNavigationToDetails(selectedHealthyRecipeId)
+                }
             )
         }
     }
@@ -114,6 +121,6 @@ fun HealthyRecipeList(
 @Composable
 private fun HomeScreenPreview() {
     NutritionalTableTheme {
-        HomeScreen()
+        HomeScreen(onNavigationToDetails = {})
     }
 }
