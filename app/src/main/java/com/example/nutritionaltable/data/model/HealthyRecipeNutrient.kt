@@ -6,6 +6,6 @@ import com.example.nutritionaltable.R
 data class HealthyRecipeNutrient(
     val value: Float,
     val unit: NutrientUnit,
-    @StringRes
+    @param:StringRes
     val name:  Int
 )

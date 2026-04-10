@@ -6,7 +6,7 @@ import java.util.UUID
 data class WellnessNews(
     val id: UUID = UUID.randomUUID(),
     val title: String,
-    @DrawableRes
+    @param:DrawableRes
     val imageRes: Int,
     val readTimeInMinutes: Int,
     val tags: List<WellnessNewsTag>

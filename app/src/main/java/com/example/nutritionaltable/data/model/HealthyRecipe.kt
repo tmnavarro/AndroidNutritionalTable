@@ -7,7 +7,7 @@ import java.util.UUID
 data class HealthyRecipe(
     val id: UUID = UUID.randomUUID(),
     val name: String,
-    @DrawableRes
+    @param:DrawableRes
     val imageRes: Int,
     val calories: HealthyRecipeNutrient,
     val proteins: HealthyRecipeNutrient,

@@ -8,18 +8,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.nutritionaltable.data.model.NutrientUnit
+import com.example.nutritionaltable.data.model.HealthyRecipeNutrient
+import com.example.nutritionaltable.mockHealthyRecipes
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme
 import com.example.nutritionaltable.ui.theme.NutritionalTableTheme.sizing
 import com.example.nutritionaltable.ui.theme.Typography
 
 @Composable
-fun HealthyRecipeMoreDetails(
+fun HealthyRecipeNutrientDetails(
     modifier: Modifier = Modifier,
-    name: String,
-    value: Float,
-    unit: NutrientUnit,
+    healthyRecipeNutrient: HealthyRecipeNutrient,
     isSubNutrient: Boolean = false
 ) {
     Row(
@@ -28,14 +28,17 @@ fun HealthyRecipeMoreDetails(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            modifier = Modifier.weight(1f).padding(
-                start = if(isSubNutrient) sizing.md else sizing.x0,
-                bottom = sizing.sm),
-            style = if(isSubNutrient) Typography.bodyMedium else Typography.headlineMedium,
-            text = name
+            modifier = Modifier
+                .weight(1f)
+                .padding(
+                    start = if (isSubNutrient) sizing.md else sizing.x0,
+                    bottom = sizing.sm
+                ),
+            style = if (isSubNutrient) Typography.bodyMedium else Typography.headlineMedium,
+            text = stringResource(healthyRecipeNutrient.name)
         )
         Text(
-            text = "$value ${unit.symbol}",
+            text = "${healthyRecipeNutrient.value} ${healthyRecipeNutrient.unit.symbol}",
             style = Typography.bodyMedium
         )
     }
@@ -43,22 +46,18 @@ fun HealthyRecipeMoreDetails(
 
 @Preview(showBackground = true)
 @Composable
-private fun HealthyRecipeMoreDetailsPreview() {
+private fun HealthyRecipeNutrientDetailsPreview() {
     NutritionalTableTheme {
         Column(
             modifier = Modifier.padding(sizing.md),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            HealthyRecipeMoreDetails(
-                name = "Proteina",
-                value = 10f,
-                unit = NutrientUnit.KCAL,
+            HealthyRecipeNutrientDetails(
+                healthyRecipeNutrient = mockHealthyRecipes.first().calories,
                 isSubNutrient = false
             )
-            HealthyRecipeMoreDetails(
-                name = "Fibras",
-                value = 10f,
-                unit = NutrientUnit.KCAL,
+            HealthyRecipeNutrientDetails(
+                healthyRecipeNutrient = mockHealthyRecipes.first().proteins,
                 isSubNutrient = true
             )
         }
