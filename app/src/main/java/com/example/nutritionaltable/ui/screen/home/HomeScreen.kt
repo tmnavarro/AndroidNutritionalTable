@@ -1,10 +1,10 @@
 package com.example.nutritionaltable.ui.screen.home
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -22,6 +25,7 @@ import androidx.compose.ui.unit.Dp
 import com.example.nutritionaltable.R
 import com.example.nutritionaltable.data.model.HealthyRecipe
 import com.example.nutritionaltable.data.model.WellnessNews
+import com.example.nutritionaltable.domain.model.HomeContent
 import com.example.nutritionaltable.mockHealthyRecipes
 import com.example.nutritionaltable.mockWellnessNews
 import com.example.nutritionaltable.ui.component.home.HealthyRecipeCard
@@ -34,45 +38,62 @@ import com.example.nutritionaltable.ui.theme.Typography
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onNavigationToDetails: (healthyRecipeId: String) -> Unit
+    onNavigationToDetails: (healthyRecipeId: String) -> Unit,
+    uiState: HomeUIState,
+    onEvent: (HomeEvent) -> Unit
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(sizing.md)
-        ) {
-            WelcomeHeader(
-                userName = "Jonh Doe",
-            )
-            Spacer(
-                modifier = Modifier.height(sizing.x2l)
-            )
-            Text(
-                text = stringResource(R.string.saude_em_foco),
-                style = Typography.headlineMedium
-            )
-            Spacer(
-                modifier = Modifier.height(sizing.lg)
-            )
-            WellnessNewsList(wellnessNewsList = mockWellnessNews, cardWidth = sizing.x5l)
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFF2F2F2))
-                .padding(sizing.md)
-        ) {
-            Text(
-                text = stringResource(R.string.tabela_nutricional),
-                style = Typography.headlineMedium
-            )
-            Spacer(
-                modifier = Modifier.height(sizing.lg)
-            )
-            HealthyRecipeList(healthyRecipes = mockHealthyRecipes, onNavigationToDetails = onNavigationToDetails)
-        }
+    LaunchedEffect(key1 = Unit) {
+        onEvent(HomeEvent.OnInit)
+    }
 
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (uiState.isLoading) {
+            CircularProgressIndicator()
+        } else {
+            if (uiState.homeContent != null) {
+                Column(
+                    modifier = Modifier.padding(sizing.md)
+                ) {
+                    WelcomeHeader(
+                        userName = uiState.userName.orEmpty(),
+                    )
+                    Spacer(
+                        modifier = Modifier.height(sizing.x2l)
+                    )
+                    Text(
+                        text = stringResource(R.string.saude_em_foco),
+                        style = Typography.headlineMedium
+                    )
+                    Spacer(
+                        modifier = Modifier.height(sizing.lg)
+                    )
+                    WellnessNewsList(wellnessNewsList = uiState.homeContent.wellnessNews, cardWidth = sizing.x5l)
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFF2F2F2))
+                        .padding(sizing.md)
+                ) {
+                    Text(
+                        text = stringResource(R.string.tabela_nutricional),
+                        style = Typography.headlineMedium
+                    )
+                    Spacer(
+                        modifier = Modifier.height(sizing.lg)
+                    )
+                    HealthyRecipeList(
+                        healthyRecipes = uiState.homeContent.healthyRecipes,
+                        onNavigationToDetails = onNavigationToDetails
+                    )
+                }
+
+            }
+        }
     }
 }
 
@@ -101,11 +122,13 @@ fun HealthyRecipeList(
     healthyRecipes: List<HealthyRecipe>,
     onNavigationToDetails: (healthyRecipeId: String) -> Unit
 ) {
-    LazyColumn (
+    LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(sizing.md)
     ) {
-        items(items = healthyRecipes, key = { healthyRecipe -> healthyRecipe.id }) { healthyRecipe ->
+        items(
+            items = healthyRecipes,
+            key = { healthyRecipe -> healthyRecipe.id }) { healthyRecipe ->
             HealthyRecipeCard(
                 healthyRecipe = healthyRecipe,
                 onClick = { selectedHealthyRecipeId ->
@@ -121,6 +144,15 @@ fun HealthyRecipeList(
 @Composable
 private fun HomeScreenPreview() {
     NutritionalTableTheme {
-        HomeScreen(onNavigationToDetails = {})
+        HomeScreen(
+            onNavigationToDetails = {},
+            uiState = HomeUIState(
+            homeContent = HomeContent(
+                healthyRecipes = mockHealthyRecipes,
+                wellnessNews = mockWellnessNews,
+            ),
+            isLoading = false,
+            userName = "John Doe"
+        ), onEvent = {})
     }
 }

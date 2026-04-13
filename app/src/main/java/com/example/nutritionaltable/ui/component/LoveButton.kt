@@ -25,8 +25,11 @@ import com.example.nutritionaltable.ui.theme.Secondary
 import kotlinx.coroutines.delay
 
 @Composable
-fun LoveButton(modifier: Modifier = Modifier, onClick: (isSelected: Boolean) -> Unit) {
-    var isSelected by remember { mutableStateOf(false) }
+fun LoveButton(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
+    onClick: (isSelected: Boolean) -> Unit) {
+    var isSelected by remember { mutableStateOf(isSelected) }
     var isPressed by remember { mutableStateOf(false) }
 
     val color by animateColorAsState(
