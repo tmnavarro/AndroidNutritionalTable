@@ -18,15 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NutritionalTableTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    contentColor = MaterialTheme.colorScheme.onSecondary
-                ) { innerPadding ->
-                    MainNavHost(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MainNavHost()
             }
         }
     }
